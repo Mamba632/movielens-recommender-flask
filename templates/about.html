@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}About | Movie Recommender{% endblock %}
+{% block content %}
+<section class="page-head"><p class="eyebrow">How it works</p><h1>About this system</h1></section>
+<section class="panel prose">
+    <h2>Recommendation engine</h2>
+    <p>The app combines movie titles, genres, user tags, rating averages, rating counts, and TF-IDF cosine similarity to rank related movies.</p>
+    <h2>Why Flask</h2>
+    <p>Flask gives this project a normal website structure: routes, templates, static styling, CSV downloads, and room for login or database features later.</p>
+    <h2>Project files</h2>
+    <p><code>app.py</code> is the Flask web server. <code>movie_complete.py</code> is the recommendation engine. The <code>templates</code> and <code>static</code> folders control the frontend.</p>
+</section>
+{% endblock %}

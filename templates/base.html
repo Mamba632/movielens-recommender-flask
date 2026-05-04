@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Movie Recommender{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <aside class="sidebar">
+        <a class="brand" href="/">
+            <span class="brand-mark">MR</span>
+            <span><b>Movie</b> Recommender</span>
+        </a>
+        <nav>
+            <a class="{{ 'active' if active_path == '/' else '' }}" href="/"><span>H</span>Home</a>
+            <a class="{{ 'active' if active_path == '/similar' else '' }}" href="/similar"><span>S</span>Find Similar</a>
+            <a class="{{ 'active' if active_path == '/recommend' else '' }}" href="/recommend"><span>P</span>Personal Picks</a>
+            <a class="{{ 'active' if active_path == '/search' else '' }}" href="/search"><span>F</span>Search</a>
+            <a class="{{ 'active' if active_path == '/analytics' else '' }}" href="/analytics"><span>A</span>Analytics</a>
+            <a class="{{ 'active' if active_path == '/about' else '' }}" href="/about"><span>?</span>About</a>
+        </nav>
+        <div class="sidebar-note">
+            <strong>Local Flask app</strong>
+            <span>Running on port 5000</span>
+        </div>
+    </aside>
+    <main class="content">
+        <header class="topbar">
+            <div>
+                <span class="status-dot"></span>
+                Ready for recommendations
+            </div>
+            <a class="ghost-link" href="/search">Search catalog</a>
+        </header>
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

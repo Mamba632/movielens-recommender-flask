@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Analytics | Movie Recommender{% endblock %}
+{% block content %}
+<section class="page-head"><p class="eyebrow">Dataset health</p><h1>Analytics</h1><p>Live usage counters plus a compact view of the dataset distribution.</p></section>
+<section class="metric-grid">
+    <div class="metric accent-red"><span>Total movies</span><strong>{{ "{:,}".format(stats.total_movies) }}</strong></div>
+    <div class="metric accent-blue"><span>Total searches</span><strong>{{ stats.total_searches }}</strong></div>
+    <div class="metric accent-green"><span>Total recommendations</span><strong>{{ stats.total_recommendations }}</strong></div>
+    <div class="metric accent-amber"><span>Avg compute</span><strong>{{ "%.1f"|format(stats.avg_computation_time_ms) }}ms</strong></div>
+</section>
+<section class="split">
+    <div class="panel-section">
+        <h2>Top years</h2>
+        <div class="bar-list">
+            {% for year, count in top_years %}
+            <div class="bar-row"><span>{{ year }}</span><div><i style="width: {{ (count / top_years[0][1] * 100)|round }}%"></i></div><strong>{{ count }}</strong></div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="panel-section">
+        <h2>Top keywords</h2>
+        <div class="bar-list">
+            {% for keyword, count in top_keywords %}
+            <div class="bar-row keyword"><span>{{ keyword }}</span><div><i style="width: {{ (count / top_keywords[0][1] * 100)|round }}%"></i></div><strong>{{ count }}</strong></div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

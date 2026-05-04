@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Home | Movie Recommender{% endblock %}
+{% block content %}
+<section class="hero">
+    <div class="hero-copy">
+        <p class="eyebrow">MovieLens-powered recommendations</p>
+        <h1>Discover movies that match your taste.</h1>
+        <p>Search by title, build a personal taste profile, and inspect the dataset behind every recommendation.</p>
+        <div class="actions">
+            <a class="button primary" href="/similar">Find similar movies</a>
+            <a class="button" href="/recommend">Get personal picks</a>
+        </div>
+    </div>
+    <div class="hero-panel">
+        <span>Try a title</span>
+        <form action="/similar" method="get">
+            <input name="query" value="Toy Story" aria-label="Movie title">
+            <button class="button primary" type="submit">Search</button>
+        </form>
+    </div>
+</section>
+
+<section class="metric-grid">
+    <div class="metric accent-red"><span>Total movies</span><strong>{{ "{:,}".format(recommender.movies|length) }}</strong></div>
+    <div class="metric accent-blue"><span>Years covered</span><strong>{{ min_year }}-{{ max_year }}</strong></div>
+    <div class="metric accent-green"><span>Load time</span><strong>{{ "%.1f"|format(recommender.stats.load_time) }}s</strong></div>
+    <div class="metric accent-amber"><span>Recommendation mode</span><strong>TF-IDF</strong></div>
+</section>
+
+<section class="split">
+    <div class="panel-section">
+        <h2>Top movie years</h2>
+        <div class="bar-list">
+            {% for year, count in top_years %}
+            <div class="bar-row"><span>{{ year }}</span><div><i style="width: {{ (count / top_years[0][1] * 100)|round }}%"></i></div><strong>{{ count }}</strong></div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="panel-section">
+        <h2>Common keywords</h2>
+        <div class="pill-cloud">
+            {% for keyword, count in top_keywords %}
+            <span>{{ keyword }} <b>{{ count }}</b></span>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

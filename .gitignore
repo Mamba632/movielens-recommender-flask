@@ -1,0 +1,16 @@
+# Python environments and cache
+.venv/
+.venv_broken_py314/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Runtime logs
+*.log
+flask-smoke.out.log
+flask-smoke.err.log
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+.vscode/

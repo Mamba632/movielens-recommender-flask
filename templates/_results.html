@@ -1,0 +1,30 @@
+{% if results %}
+<div class="table-wrap">
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Score</th>
+                <th>Year</th>
+                <th>Rating</th>
+                <th>Ratings</th>
+                <th>Genres</th>
+                <th>Matches</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in results %}
+            <tr>
+                <td class="title-cell"><strong>{{ row.title }}</strong><span>{{ row.item_id }}</span></td>
+                <td><span class="score-badge">{{ row.score }}</span></td>
+                <td>{{ row.year }}</td>
+                <td>{{ row.avg_rating }}</td>
+                <td>{{ row.num_ratings }}</td>
+                <td>{{ row.genres }}</td>
+                <td>{{ row.matching_keywords or "From profile" }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}

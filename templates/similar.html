@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Find Similar | Movie Recommender{% endblock %}
+{% block content %}
+<section class="page-head">
+    <p class="eyebrow">Title-based discovery</p>
+    <h1>Find similar movies</h1>
+    <p>Use title, year, rating, and similarity controls to narrow the recommendation list.</p>
+</section>
+
+<form class="panel form-panel" method="post">
+    <div class="primary-field">
+        <label>Movie title<input name="query" value="{{ query }}" placeholder="Toy Story"></label>
+        <button class="button primary" type="submit">Search</button>
+    </div>
+    <div class="form-grid">
+        <label>Results<input type="number" name="top_n" min="5" max="30" value="{{ top_n }}"></label>
+        <label>Min similarity<input type="number" name="min_similarity" min="0" max="1" step="0.05" value="{{ min_similarity }}"></label>
+        <label>Start year<input type="number" name="start_year" min="{{ min_year }}" max="{{ max_year }}" value="{{ start_year }}"></label>
+        <label>End year<input type="number" name="end_year" min="{{ min_year }}" max="{{ max_year }}" value="{{ end_year }}"></label>
+        <label>Min rating<input type="number" name="min_rating" min="0" max="5" step="0.5" value="{{ min_rating }}"></label>
+    </div>
+</form>
+
+{% if query and not results %}
+<div class="notice">No movies found. Try a lower similarity or wider year range.</div>
+{% if suggestions %}
+<div class="panel"><h2>Possible titles</h2>{% for title in suggestions %}<span class="tag">{{ title }}</span>{% endfor %}</div>
+{% endif %}
+{% endif %}
+
+{% if results %}
+<div class="section-toolbar">
+    <div><p class="eyebrow">Results</p><h2>{{ results|length }} similar movies</h2></div>
+    <a class="button" href="/download/similar?query={{ query|urlencode }}&top_n={{ top_n }}&min_similarity={{ min_similarity }}&start_year={{ start_year }}&end_year={{ end_year }}&min_rating={{ min_rating }}">Download CSV</a>
+</div>
+{% include "_results.html" %}
+{% endif %}
+{% endblock %}

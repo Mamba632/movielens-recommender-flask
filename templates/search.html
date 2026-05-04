@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Search | Movie Recommender{% endblock %}
+{% block content %}
+<section class="page-head"><p class="eyebrow">Catalog lookup</p><h1>Search movie titles</h1><p>Find exact and fuzzy title matches in the local MovieLens catalog.</p></section>
+<form class="panel compact" method="get">
+    <label>Search<input name="query" value="{{ query }}" placeholder="Matrix"></label>
+    <label>Limit<input type="number" name="limit" min="5" max="100" value="{{ limit }}"></label>
+    <button class="button primary" type="submit">Search</button>
+</form>
+{% if results %}
+<div class="section-toolbar"><div><p class="eyebrow">Matches</p><h2>{{ results|length }} movies found</h2></div></div>
+<div class="table-wrap">
+    <table><thead><tr><th>Title</th><th>Year</th><th>Movie ID</th></tr></thead><tbody>
+    {% for row in results %}<tr><td><strong>{{ row.title }}</strong></td><td>{{ row.year }}</td><td>{{ row.item_id }}</td></tr>{% endfor %}
+    </tbody></table>
+</div>
+{% elif query %}
+<div class="notice">No matching movies found.</div>
+{% endif %}
+{% endblock %}
